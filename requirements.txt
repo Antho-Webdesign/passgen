@@ -18,4 +18,3 @@ gunicorn==20.1.0
 setuptools==65.5.1
 psycopg2
 fontawesomefree==6.2.0
-
