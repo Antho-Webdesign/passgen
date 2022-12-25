@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import register, login_user, logout_user, profile, updt_profile
+from .views import register, login_user, logout_user, profile, updt_profile, password_reset
 
 urlpatterns = [
     path('register/', register, name='register'),  # Inscription
@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', login_user, name='login'),  # Profil
     path('profile/', profile, name='profile'),  # Profil
     path('updt_profile/', updt_profile, name='updt_profile'),  # Profil
+    path('password_reset/', password_reset, name='password_reset'),
     # Reset Password
     # path('password-reset/', PasswordResetView.as_view(template_name='users/password_reset.html'),
     #     name='password_reset'),

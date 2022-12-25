@@ -66,3 +66,7 @@ def updt_profile(request):
     context = {'u_form': u_form, 'p_form': p_form}
 
     return render(request, 'users/updt-profile.html', context)
+
+
+def password_reset(request):
+    return render(request, 'users/password_reset.html')
