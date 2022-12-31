@@ -6,7 +6,6 @@
         <h1 class="text-center">Mon coffre fort</h1>
     </div>
 
-        {% for i in results %}
         <table>
             <tr>
                 <td>Site</td>
@@ -15,6 +14,7 @@
                 <td></td>
             </tr>
 
+            {% for i in items %}
             <tr>
                 <td>{{ i.site }}</td>
                 <td>{{ i.time }}</td>
@@ -25,13 +25,10 @@
                         <button type="button" class="btn btn-danger btn-sm">Supprimer</button>
                     </a>
                 </td>
-
             </tr>
+            {% endfor %}
         </table>
-    {% endfor %}
 
-    {% for i in results %}
-       {{ i.site }}
-    {% endfor %}
+
 
 {% endblock %}
