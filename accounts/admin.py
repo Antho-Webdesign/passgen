@@ -1,19 +1,8 @@
 from django.contrib import admin
-<<<<<<< HEAD
-
-# Register your models here.
-from .models import Profile
-
-admin.site.register(Profile)
-=======
 from django.contrib.auth.admin import UserAdmin
-<<<<<<<< HEAD:accounts/admin.py
 from django.contrib.auth.models import Group
 
 from accounts.models import Customer, Profile
-========
-from users.models import Customer, Profile
->>>>>>>> github/main:users/admin.py
 
 
 class ProfileInline(admin.StackedInline):
@@ -32,10 +21,5 @@ class CustomerAdmin(UserAdmin):
 
 
 admin.site.register(Customer)
-<<<<<<<< HEAD:accounts/admin.py
 admin.site.register(Profile)
-admin.site.unregister(Group)
-========
-admin.site.register(Profile)
->>>>>>>> github/main:users/admin.py
->>>>>>> github/main
+

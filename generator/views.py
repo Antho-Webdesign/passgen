@@ -1,13 +1,13 @@
+import random
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-import random, string
+
 from .models import GenPass
-from .forms import PassGenForm
-from django.views import View
-import re
 
 User = get_user_model()
+
+# Create your views here.
+
 def home(request):
     if request.method != "POST":
         return render(request, 'generator/home.html')
@@ -37,10 +37,6 @@ def home(request):
                 'password': passwd
             }
             return render(request, 'generator/home.html', context)
-<<<<<<< HEAD
-
-=======
->>>>>>> github/main
 
 def listall(request):
     results = GenPass.objects.all()

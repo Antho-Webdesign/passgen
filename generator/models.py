@@ -1,10 +1,7 @@
 from django.db import models
 from django.utils import timezone
-<<<<<<< HEAD
-from users.models import Customer
-=======
+
 from accounts.models import Customer
->>>>>>> github/main
 
 
 # Create your models here.

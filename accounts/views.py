@@ -1,59 +1,8 @@
-<<<<<<< HEAD
-from django.contrib.auth import login, logout
-from django.shortcuts import render, redirect
-
-from accounts.models import User, Profile
-
-
-# Create your views here.
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        if username == "" or password == "":
-            return redirect('login')
-        user = User.objects.get(username=username)
-        login(request, user)
-        return redirect('profile')
-
-    return render(request, 'users/login.html')
-
-def logout_user(request):
-    logout(request)
-    return redirect('login')
-
-
-def profile(request):
-    user = request.user
-    context = {
-        'user': user,
-    }
-    return render(request, 'users/profile.html', context)
-
-def edit_profile(request):
-    user = request.user
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-
-        if username == "" or email == "":
-            return redirect('profile')
-        else:
-            user.username = username
-            user.email = email
-            user.save()
-            return redirect('profile')
-    return render(request, 'users/updt-profile.html')
-
-def register(request):
-=======
-from genericpath import exists
-import random
 from django.contrib.auth import get_user_model, logout, login, authenticate
-from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from .models import Profile
+from django.shortcuts import render, redirect, get_object_or_404
 
+from .models import Profile
 
 User = get_user_model()
 
@@ -61,7 +10,6 @@ User = get_user_model()
 # Create your views here.
 def signup(request):
 
->>>>>>> github/main
     if request.method == "POST":
         # traiter le formulaire
         username = request.POST.get("username")
@@ -80,24 +28,6 @@ def signup(request):
             msg = {
                 'message': message
             }
-<<<<<<< HEAD
-            return render(request, 'users/register.html', msg)
-    return render(request, 'users/register.html')
-
-def reset_password(request):
-    return render(request, 'users/password_reset.html')
-
-def reset_password_done(request):
-    return render(request, 'users/password_reset_done.html')
-
-def reset_password_confirm(request):
-    return render(request, 'users/password_reset_confirm.html')
-
-def reset_password_complete(request):
-    return render(request, 'users/password_reset_complete.html')
-
-
-=======
             return render(request, 'accounts/signup.html', msg)
     return render(request, 'accounts/signup.html')
 
@@ -183,5 +113,4 @@ def password_reset_confirm(request):
 
 def password_reset_complete(request):
     return render(request, 'accounts/registration/password_reset_complete.html')
->>>>>>> github/main
 
