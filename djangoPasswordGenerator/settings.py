@@ -27,12 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_bootstrap5',
-    'generator',
-    'users',
     'crispy_forms',
     'fontawesomefree',
-    # 'portfolio.apps.PortfolioConfig',
+    'django_bootstrap5',
+    'generator',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -119,19 +118,19 @@ MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-AUTH_USER_MODEL = 'users.Customer'
+AUTH_USER_MODEL = 'accounts.Customer'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_HOST_PORT = 25
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_USER = 'toutchy.kipik@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_gmail_password'
 
 django_heroku.settings(locals())
