@@ -2,19 +2,14 @@ from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 
-<<<<<<< HEAD
 from .models import Profile
 
-User = get_user_model()
-=======
-from accounts.models import User
->>>>>>> parent of d84b1191 (app ok)
 
 
 # Create your views here.
 def signup(request):
 
-<<<<<<< HEAD
+
     if request.method == "POST":
         # traiter le formulaire
         username = request.POST.get("username")
@@ -46,7 +41,7 @@ def login_user(request):
             login(request, user)
             return redirect('home')
     return render(request, 'accounts/login.html')
-=======
+
     return render(request, 'accounts/login.html')
 
 def logout_user(request):
@@ -106,7 +101,6 @@ def reset_password_confirm(request):
 
 def reset_password_complete(request):
     return render(request, 'accounts/password_reset_complete.html')
->>>>>>> parent of d84b1191 (app ok)
 
 
 def logout_user(request):

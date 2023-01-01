@@ -1,11 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
-<<<<<<< HEAD
 from accounts.models import Customer
-=======
-from users.models import Customer
->>>>>>> parent of d84b1191 (app ok)
 
 
 # Create your models here.
