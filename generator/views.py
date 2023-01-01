@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import GenPass
 
-User = get_user_model()
+user = get_user_model()
 
 # Create your views here.
 

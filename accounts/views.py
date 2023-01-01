@@ -1,15 +1,16 @@
-from django.contrib.auth import get_user_model, logout, login, authenticate
+from django.contrib.auth import logout, login, authenticate, get_user_model
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Profile
+from accounts.models import Profile, User
 
+User = get_user_model()
 
 
 # Create your views here.
 def signup(request):
-
-
+    # form = UserCreationForm(request.POST)
+    # context = {'form': form}
     if request.method == "POST":
         # traiter le formulaire
         username = request.POST.get("username")
@@ -21,17 +22,13 @@ def signup(request):
             profile = Profile.objects.create(user=user)
             user.save()
             profile.save()
-            login(request, user)
-            return redirect('home')
+            return redirect('login')
         else:
-            message = "Passwords do not match"
-            msg = {
-                'message': message
-            }
-            return render(request, 'accounts/signup.html', msg)
+            return redirect('signup')
     return render(request, 'accounts/signup.html')
 
 def login_user(request):
+
     if request.method == "POST":
         # traiter le formulaire
         username = request.POST.get("username")
@@ -42,66 +39,6 @@ def login_user(request):
             return redirect('home')
     return render(request, 'accounts/login.html')
 
-    return render(request, 'accounts/login.html')
-
-def logout_user(request):
-    logout(request)
-    return redirect('login')
-
-
-def profile(request):
-    user = request.user
-    context = {
-        'user': user,
-    }
-    return render(request, 'accounts/profile.html', context)
-
-def edit_profile(request):
-    user = request.user
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-
-        if username == "" or email == "":
-            return redirect('profile')
-        else:
-            user.username = username
-            user.email = email
-            user.save()
-            return redirect('profile')
-    return render(request, 'accounts/updt-profile.html')
-
-def register(request):
-    user = request.user
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password2 = request.POST.get('password2')
-
-        if username == "" or email == "" or password == "":
-            return redirect('register')
-        user = User.objects.create_user(username=username, email=email, password=password, password2=password2)
-        user.save()
-        login(request, user)
-        return redirect('profile')
-    context = {
-        'user': user,
-    }
-    return render(request, 'accounts/register.html', context)
-
-def reset_password(request):
-    return render(request, 'accounts/password_reset.html')
-
-def reset_password_done(request):
-    return render(request, 'accounts/password_reset_done.html')
-
-def reset_password_confirm(request):
-    return render(request, 'accounts/password_reset_confirm.html')
-
-def reset_password_complete(request):
-    return render(request, 'accounts/password_reset_complete.html')
-
 
 def logout_user(request):
     logout(request)
@@ -111,7 +48,9 @@ def logout_user(request):
 def profile(request):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
+
     context = {
+
         'profile': profile,
     }
     return render(request, 'accounts/profile.html', context)
@@ -120,6 +59,7 @@ def profile(request):
 def edit_profile(request):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
+
     context = {
         'profile': profile,
     }
@@ -147,7 +87,9 @@ def edit_profile(request):
         }
         context.update(msg)
 
+        user.save()
         profile.save()
+
         return redirect('profile')
     return render(request, 'accounts/profile_update.html', context)
 
@@ -173,4 +115,3 @@ def password_reset_confirm(request):
 
 def password_reset_complete(request):
     return render(request, 'accounts/registration/password_reset_complete.html')
-
