@@ -9,39 +9,38 @@ User = get_user_model()
 # Create your views here.
 
 def home(request):
-    if request.method != "POST":
-        return render(request, 'generator/home.html')
-    else:
+    if request.method == "POST":
         site = request.POST.get('site')
+        user = request.POST.get('user.username')
         if site == "":
             return render(request, 'generator/home.html')
         password_length = int(request.POST.get('length'))
-        characters = "!@#$%^&**()_+"
-        numbers = '1234567890'
-        small_letters = "qwertyuioplkjhgfdsazxcvbnm"
-        upper_case = "QWERTYUIOPASDFGHJKLMNBVCXZ"
-        prep = characters + numbers + small_letters + upper_case
         if password_length > 30:
             message = "can't generate password more than 30 characters"
-            context = {
-                'message': message
-            }
+            context = {'message': message}
             return render(request, 'generator/home.html', context)
-
         else:
+            user = request.user
+            numbers = '1234567890'
+            small_letters = "qwertyuioplkjhgfdsazxcvbnm"
+            prep = f"!@#$%^&**()_+{numbers}{small_letters}QWERTYUIOPASDFGHJKLMNBVCXZ"
             passwd = ''.join(random.sample(prep, k=password_length))
             print(passwd)
-            p = GenPass.objects.create(site=site, passwords=passwd, user=request.user)
+            p = GenPass.objects.create(site=site, passwords=passwd, user=user)
+
             p.save()
             context = {
-                'password': passwd
+                'password': passwd,
+                'site': site,
+                'user': user,
             }
-            return render(request, 'generator/home.html', context)
+            return render(request, 'generator/success.html', context)
+    return render(request, "generator/home.html")
 
 def listall(request):
-    results = GenPass.objects.all()
     user = request.user
     items = GenPass.objects.filter(user=user)
+    results = GenPass.objects.filter(user=user)
     context = {
         'results': results,
         'items': items,
@@ -54,7 +53,7 @@ def listall(request):
 def search(request):
     if request.method == "POST":
         if query := request.POST.get('site', None):
-            results = GenPass.objects.filter(site__contains=query, user=request.user)
+            results = GenPass.objects.filter(site__contains=query)
             return render(request, 'generator/search.html', {'results': results})
     return render(request, 'generator/search.html')
 

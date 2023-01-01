@@ -2,14 +2,19 @@ from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 
+<<<<<<< HEAD
 from .models import Profile
 
 User = get_user_model()
+=======
+from accounts.models import User
+>>>>>>> parent of d84b1191 (app ok)
 
 
 # Create your views here.
 def signup(request):
 
+<<<<<<< HEAD
     if request.method == "POST":
         # traiter le formulaire
         username = request.POST.get("username")
@@ -41,6 +46,67 @@ def login_user(request):
             login(request, user)
             return redirect('home')
     return render(request, 'accounts/login.html')
+=======
+    return render(request, 'accounts/login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+
+def profile(request):
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'accounts/profile.html', context)
+
+def edit_profile(request):
+    user = request.user
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        if username == "" or email == "":
+            return redirect('profile')
+        else:
+            user.username = username
+            user.email = email
+            user.save()
+            return redirect('profile')
+    return render(request, 'accounts/updt-profile.html')
+
+def register(request):
+    user = request.user
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        if username == "" or email == "" or password == "":
+            return redirect('register')
+        user = User.objects.create_user(username=username, email=email, password=password, password2=password2)
+        user.save()
+        login(request, user)
+        return redirect('profile')
+    context = {
+        'user': user,
+    }
+    return render(request, 'accounts/register.html', context)
+
+def reset_password(request):
+    return render(request, 'accounts/password_reset.html')
+
+def reset_password_done(request):
+    return render(request, 'accounts/password_reset_done.html')
+
+def reset_password_confirm(request):
+    return render(request, 'accounts/password_reset_confirm.html')
+
+def reset_password_complete(request):
+    return render(request, 'accounts/password_reset_complete.html')
+>>>>>>> parent of d84b1191 (app ok)
 
 
 def logout_user(request):
