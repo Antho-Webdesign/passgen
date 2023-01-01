@@ -5,14 +5,6 @@ from django.contrib.auth.models import AbstractUser
 class Customer(AbstractUser):
     pass
 
-    class Meta:
-        verbose_name = "Customer"
-        verbose_name_plural = "Customers"
-        app_label = "accounts"
-
-    def __str__(self):
-        return self.user.username
-
 
 
 class Profile(models.Model):
