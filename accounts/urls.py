@@ -1,7 +1,7 @@
 from allauth.account.views import password_reset, password_reset_done
 from django.urls import path
 
-from accounts.views import signup, login_user, logout_user, profile, edit_profile, password_reset_confirm, \
+from .views import signup, login_user, logout_user, profile, edit_profile, password_reset_confirm, \
     password_reset_complete
 
 urlpatterns = [

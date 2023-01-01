@@ -2,7 +2,7 @@ from django.contrib.auth import logout, login, authenticate, get_user_model
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 
-from accounts.models import Profile, User
+from .models import Profile
 
 User = get_user_model()
 

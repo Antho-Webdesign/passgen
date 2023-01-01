@@ -1,10 +1,19 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
 class Customer(AbstractUser):
     pass
+
+    class Meta:
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers"
+        app_label = "accounts"
+
+    def __str__(self):
+        return self.user.username
+
+
 
 class Profile(models.Model):
     user = models.OneToOneField(Customer, on_delete=models.CASCADE)
@@ -22,6 +31,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = 'Profiles'
         ordering = ('user',)
+        app_label = "accounts"
 
 
 
