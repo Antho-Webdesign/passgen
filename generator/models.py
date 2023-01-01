@@ -16,7 +16,7 @@ class GenPass(models.Model):
     class Meta:
         verbose_name = 'genpass'
         verbose_name_plural = 'genpasses'
-        ordering = ['user']
+        ordering = ['time']
 
 
 

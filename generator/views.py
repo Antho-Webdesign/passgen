@@ -4,14 +4,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import GenPass
 
-user = get_user_model()
+User = get_user_model()
 
 # Create your views here.
 
 def home(request):
     if request.method == "POST":
         site = request.POST.get('site')
-        user = request.POST.get('user.username')
         if site == "":
             return render(request, 'generator/home.html')
         password_length = int(request.POST.get('length'))
@@ -27,7 +26,6 @@ def home(request):
             passwd = ''.join(random.sample(prep, k=password_length))
             print(passwd)
             p = GenPass.objects.create(site=site, passwords=passwd, user=user)
-
             p.save()
             context = {
                 'password': passwd,
