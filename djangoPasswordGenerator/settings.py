@@ -24,7 +24,6 @@ SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.auth',
-    'allauth',
     'allauth.account',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
