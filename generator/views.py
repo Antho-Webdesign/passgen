@@ -80,3 +80,8 @@ def deleterecord(request, id):
 def home_test(request):
     return render(request, 'generator/home-test.html')
 
+def about(request):
+    return render(request, 'generator/about.html')
+
+def mentions(request):
+    return render(request, 'generator/mentions-legales.html')

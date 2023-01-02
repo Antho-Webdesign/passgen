@@ -6,15 +6,16 @@
         <h1 class="text-center">Mon coffre fort</h1>
     </div>
 
-        {% for i in results %}
-        <table>
-            <tr>
-                <td>Site</td>
-                <td>Enregistrer le</td>
-                <td>MDP généré</td>
-                <td></td>
-            </tr>
 
+    <table>
+        <tr>
+            <td>Site</td>
+            <td>Enregistrer le</td>
+            <td>MDP généré</td>
+            <td></td>
+        </tr>
+
+        {% for i in results %}
             <tr>
                 <td>{{ i.site }}</td>
                 <td>{{ i.time }}</td>
@@ -25,13 +26,8 @@
                         <button type="button" class="btn btn-danger btn-sm">Supprimer</button>
                     </a>
                 </td>
-
             </tr>
-        </table>
-    {% endfor %}
-
-    {% for i in results %}
-       {{ i.site }}
-    {% endfor %}
+        {% endfor %}
+    </table>
 
 {% endblock %}
