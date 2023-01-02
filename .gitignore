@@ -3,3 +3,5 @@ __pycache__
 portfolio/__pycache__/views.cpython-310.pyc
 /env310/
 *.pyc
+*.pyc
+generator/__pycache__/views.cpython-310.pyc

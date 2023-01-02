@@ -31,20 +31,19 @@ def home(request):
             p.save()
             # encryption de password
             p = hashlib.sha256()
-            print(p)
 
             # Créez un objet hash en utilisant l'algorithme SHA-256
             hash_object = hashlib.sha256(passwd.encode())
+            print(hash_object)
             # Afficher le hash hexadécimal
             hex_dig = hash_object.hexdigest()
-            print(p)
             print(hex_dig)
-
 
             context = {
                 'password': passwd,
                 'site': site,
                 'user': user,
+                'hex_dig': hex_dig,
             }
             return render(request, 'generator/success.html', context)
     return render(request, "generator/home.html")
