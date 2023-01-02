@@ -1,5 +1,7 @@
+import hashlib
 import random
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import GenPass
@@ -27,6 +29,18 @@ def home(request):
             print(passwd)
             p = GenPass.objects.create(site=site, passwords=passwd, user=user)
             p.save()
+            # encryption de password
+            p = hashlib.sha256()
+            print(p)
+
+            # Créez un objet hash en utilisant l'algorithme SHA-256
+            hash_object = hashlib.sha256(passwd.encode())
+            # Afficher le hash hexadécimal
+            hex_dig = hash_object.hexdigest()
+            print(p)
+            print(hex_dig)
+
+
             context = {
                 'password': passwd,
                 'site': site,
@@ -35,6 +49,7 @@ def home(request):
             return render(request, 'generator/success.html', context)
     return render(request, "generator/home.html")
 
+@login_required
 def listall(request):
     user = request.user
     items = GenPass.objects.filter(user=user)
@@ -47,7 +62,7 @@ def listall(request):
     return render(request, 'generator/listalll.html',context)
 
 
-
+@login_required
 def search(request):
     if request.method == "POST":
         if query := request.POST.get('site', None):
@@ -55,7 +70,7 @@ def search(request):
             return render(request, 'generator/search.html', {'results': results})
     return render(request, 'generator/search.html')
 
-
+@login_required
 def deleterecord(request, id):
     obj = get_object_or_404(GenPass, id=id)
     obj.delete()
