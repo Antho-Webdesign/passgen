@@ -12,6 +12,9 @@
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-group">
+                         <label for="username">Pseudo</label>
+                        <input type="text" class="form-control mb-2" id="username" name="username" value="{{ user.username }}">
+
                         <label for="first_name">Prénom</label>
                         <input type="text" class="form-control mb-2" id="first_name" name="first_name" value="{{ user.first_name }}">
 
